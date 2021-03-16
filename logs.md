@@ -4,7 +4,7 @@
 Recherches sur les input VR. Aura-t-on besoin de SteamVR ?
 
 ```14/03/21 - Michael```
-Manipulation de la caméra (ex. 2).
+Manipulations de la caméra (calcul de la base attachée...) (ex. 2).
 
 ```11/03/21 - Michael```
 Clonage du répo three.js et vérification des exemples.
