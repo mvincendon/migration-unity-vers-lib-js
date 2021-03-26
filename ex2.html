@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Déplacements de camera</title>
+    <link rel="shortcut icon" href="#" />
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script type="module">
+        import * as THREE from "./build/three.module.js";
+        import {VRButton} from "./libs/VRButton.js";
+
+
+        window.addEventListener('load', () => {
+            // Initialisation des objets
+            let scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x555555);
+
+            let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(0, 1.6, 3);
+            scene.add(camera);
+
+            let cube = new THREE.Mesh(
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.MeshLambertMaterial({color: 'red'})
+            );
+            cube.position.set(0, 1.5, -10);
+            scene.add(cube);
+
+            
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+            let renderer = new THREE.WebGLRenderer({antialias: true});
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.xr.enabled = true;
+
+            document.body.appendChild(renderer.domElement);
+            document.body.appendChild(VRButton.createButton(renderer));
+
+
+            // Fonction qui se mettra à jour à chaque frame
+            renderer.setAnimationLoop(() => {
+                // A commenter si on veut passer en RV
+                // requestAnimationFrame(animate);
+
+                cube.rotation.x += 0.1;
+                cube.rotation.y += 0.1;
+
+                // Déplacement vers l'avant de la caméra
+                let dl = 0.05;
+
+                let [u, v, w] = base(camera);
+                let [xu, yu, zu] = u;
+
+                let dx = dl * xu,
+                    dy = dl * yu,
+                    dz = dl * zu;
+
+                camera.position.set(camera.position.x + dx, camera.position.y + dy, camera.position.z + dz);
+
+                renderer.render(scene, camera);
+            });
+
+            function base(cam){
+                // Retourne la base orthonormale directe(u, v, w) où :
+                // u est dans la direction où regarde la caméra
+                // v est "vers la gauche"
+                // w est "vers le haut"
+
+                let cos = Math.cos,
+                    sin = Math.sin;
+
+                let rx = cam.rotation.x,
+                    ry = cam.rotation.y,
+                    rz = cam.rotation.z;
+
+                let cx = cos(rx),
+                    sx = sin(rx),
+                    cy = cos(ry),
+                    sy = sin(ry),
+                    cz = cos(rz),
+                    sz = sin(rz);
+
+                let xv = - cx * cy,
+                    yv = - sx * sy * cz - cx * sz,
+                    zv = cx * sy * cz - sx * cz;
+                
+                let xw = cy * sz,
+                    yw = sx * sy * sz - cx * cz,
+                    zw = - cx * sy * sz - sx * cz;
+
+                let xu = -sy,
+                    yu = sx * cy,
+                    zu = -cx * cy;
+
+                let u = [xu, yu, zu],
+                    v = [xv, yv, zv],
+                    w = [xw, yw, zw];
+
+                return [u, v, w];
+
+            }
+
+        });
+
+    </script>
+</body>
