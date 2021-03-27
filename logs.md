@@ -1,5 +1,16 @@
 # Logs du projet
 
+```27/03/21 - Jia et Michael```
+Recherche sur les minimaps "world in miniature" en Three.js.
+--> Il semblerait qu'il n'existe aucun module qui implémente ça et personne n'a rien publié dessus.
+
+```26/03/21 - Michael```
+Recherche sur les relations entre objets en Three.js, en particulier pour reproduire l'idée de l'arborescence de Unity où les fils d'un objet subissent les mêmes transformations géométriques que l'objet.
+--> Quand on veut créer un solide contenant plusieurs objets par exemple, on crée un *Object3D* (ou *Group*) et cela se fait tout seul.
+
+```25/03/21 - Tous```
+On a essayé sans succès de faire tourner les exemples du projet https://github.com/Sean-Bradley/TeleportVR en V009... 
+
 ```15/03/21 - Michael```
 Recherches sur les input VR. Aura-t-on besoin de SteamVR ? 
 --> A priori oui, en tous cas le navigateur dialogue automatiquement avec SteamVR.
