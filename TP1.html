@@ -13,7 +13,7 @@
 <body>
     <script type="module">
         import * as THREE from "./build/three.module.js";
-        import {VRButton} from "./libs/VRButton.js";
+        import {VRButton} from "./jsm/webxr/VRButton.js";
 
         const raycaster = new THREE.Raycaster();
         const mouse = new THREE.Vector2();
@@ -101,7 +101,6 @@
                     poignee.material.color.set('white');
                 }
 
-
                 renderer.render(scene, camera);
             });
 
@@ -119,7 +118,7 @@
                 // calculate objects intersecting the picking ray
                 const intersects = raycaster.intersectObjects( scene.children, true );
 
-                if (poignee == intersects[0]['object']) {
+                if (poignee == intersects[0].object) {
                     let fact = 1;
                     if (porteOuverte){
                         fact = -1;
