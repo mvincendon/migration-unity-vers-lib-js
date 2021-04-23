@@ -27,6 +27,12 @@
             camera.position.set(0, 1.6, 3);
             scene.add(camera);
 
+            raycaster.setFromCamera( mouse, camera );
+            let fleche = new THREE.ArrowHelper(raycaster.ray.direction,
+             raycaster.ray.origin.add(new THREE.Vector3(0, 0, 0)),
+              100, 0xff0000);
+            scene.add(fleche);
+
             const texturePorte = new THREE.TextureLoader().load( 'ressources_TP1/wood.jpg' );
             const textureSol = new THREE.TextureLoader().load( 'ressources_TP1/floor_wood_texture_1.jpg' );
 
@@ -76,6 +82,14 @@
                 // Coloration éventuelle de la poignée
 
                 raycaster.setFromCamera( mouse, camera);
+                if (raycaster.intersectObjects( [poignee, porte] ).length >= 1){
+                    // fleche = new THREE.ArrowHelper(raycaster.ray.direction, raycaster.ray.origin, 100, 0xff0000);
+                    fleche.setDirection(raycaster.ray.direction); 
+                    // scene.add(fleche);
+                    fleche.visible = true;
+                } else {
+                    fleche.visible = false;
+                }
                 if (raycaster.intersectObject( poignee ).length >= 1){
                     
                     poignee.material.color.set('red');
