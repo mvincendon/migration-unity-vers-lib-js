@@ -1,5 +1,25 @@
 # Logs du projet
 
+```15/04/21 - Tous```
+Implémentation du TP1. 
+Formulation par les encadrants de diverses idées d'avancement du projet : 
+Pistes d'avancement : 
+- Gestion du son
+- Questions de programmation et d'optimisation du code
+- Que faire si la démo est en distanciel ?
+- Intégration dans le TP1 de la VR avec gestion du casque et des controllers
+    - Utiliser les controllers VR pour pointer vers la poignée, et ouvrir quand on utilise le trigger par exemple
+    - Pouvoir s'approcher et pousser physiquement la porte en VR
+    - Avoir la main virtuelle qui se met sur la poignée pour ouvrir la porte si on est suffisamment près
+- Résolution dépendant de la distance ("COD" équivalent de "COD Unity")
+- Eventualité d'un plus gros projet / de quelque chose qui compile tous les PoC unitaires qu'on a faits
+- Question de la physique :
+    - Essayer les libs Canon.js et MO.js qui ont une interface avec Unity
+    - Réimplémenter une physique de base nous-même
+
+```01/04/21 - Tous```
+N'étant pas assez à l'aise sur Three.js, nous devons repartir sur les bases et implémenter le TP1 de MOVIE.
+
 ```27/03/21 - Jia et Michael```
 Recherche sur les minimaps "world in miniature" en Three.js.
 --> Il semblerait qu'il n'existe aucun module qui implémente ça et personne n'a rien publié dessus.
