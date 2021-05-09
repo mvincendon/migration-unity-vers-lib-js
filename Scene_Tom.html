@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scene_Tom</title>
+    <link rel="shortcut icon" href="#" />
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <script type="module">
+        import * as THREE from "./build/three.module.js";
+        import { VRButton } from "./jsm/webxr/VRButton.js";
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+        const cube2_color = ['green', 'gold', 'orange', 'turquoise']
+
+
+        window.addEventListener('load', () => {
+            // Initialisation des objets
+            let scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x555555);
+
+            let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
+            camera.position.set(0, 1.6, 3);
+            scene.add(camera);
+
+            let cube1 = new THREE.Mesh(
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.MeshLambertMaterial({ color: 'red' })
+            );
+            cube1.position.set(0, 1, -10);
+            scene.add(cube1);
+
+            var cube2_state = 0
+            let cube2 = new THREE.Mesh(
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.MeshLambertMaterial({ color: 'green' })
+            );
+            cube2.position.set(2, 1, -10);
+            scene.add(cube2);
+
+            var pos_cub3 = true
+            let cube3 = new THREE.Mesh(
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.MeshLambertMaterial({ color: 'purple' })
+            );
+            cube3.position.set(-2, 1, -10);
+            scene.add(cube3);
+
+            let cube4 = new THREE.Mesh(
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.MeshLambertMaterial({ color: 'magenta' })
+            );
+            cube4.position.set(4, 1, -10);
+            scene.add(cube4);
+
+            let cube5 = new THREE.Mesh(
+                new THREE.BoxGeometry(1, 1, 1),
+                new THREE.MeshLambertMaterial({ color: 'yellow' })
+            );
+            cube5.position.set(-4, 1, -10);
+            scene.add(cube5);
+
+            let sol = new THREE.Mesh(
+                new THREE.PlaneGeometry(30, 60, 5),
+                new THREE.MeshLambertMaterial({ color: 'blue', side: THREE.DoubleSide })
+            );
+            sol.position.set(0, 0, 0);
+            sol.rotation.x = Math.PI / 2;
+            scene.add(sol);
+
+
+            scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+
+            let renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.xr.enabled = true;
+
+            document.body.appendChild(renderer.domElement);
+            document.body.appendChild(VRButton.createButton(renderer));
+
+
+            // Fonction qui se mettra à jour à chaque frame
+            let [sensx, sensy] = [1, 1]
+
+            renderer.setAnimationLoop(() => {
+
+                cube4.rotation.x += 0.1;
+                cube4.rotation.y += 0.1;
+                if (Math.abs(cube5.position.x + 4) >= 0.9) {
+                    sensx *= -1;
+                }
+                cube5.position.set(cube5.position.x + sensx * 0.1, cube5.position.y, cube5.position.z);
+                if (Math.abs(cube5.position.y - 1) >= 1.1) {
+                    sensy *= -1;
+                }
+                cube5.position.set(cube5.position.x, cube5.position.y + sensy * 0.1, cube5.position.z);
+
+                raycaster.setFromCamera(mouse, camera);
+                if (raycaster.intersectObject(cube1).length >= 1) {
+
+                    cube1.material.color.set('white');
+                }
+                else if (raycaster.intersectObject(cube2).length >= 1) {
+                    cube2.material.color.set('white');
+                }
+                else if (raycaster.intersectObject(cube3).length >= 1) {
+                    cube3.material.color.set('white');
+                }
+                else {
+                    cube1.material.color.set('red');
+                    cube2.material.color.set(cube2_color[cube2_state]);
+                    cube3.material.color.set('purple');
+                }
+
+                renderer.render(scene, camera);
+            });
+
+            function onMouseMove(event) {
+                // calculate mouse position in normalized device coordinates
+                // (-1 to +1) for both components
+                mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+                mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+            }
+
+            function onMouseClick(event) {
+                // update the picking ray with the camera and mouse position
+                raycaster.setFromCamera(mouse, camera);
+
+                // calculate objects intersecting the picking ray
+                const intersects_cube1 = (raycaster.intersectObject(cube1).length >= 1);
+                const intersects_cube2 = (raycaster.intersectObject(cube2).length >= 1);
+                const intersects_cube3 = (raycaster.intersectObject(cube3).length >= 1);
+
+                if (intersects_cube1) {
+                    cube1.rotation.x += 0.1;
+                    cube1.rotation.y += 0.1;
+                }
+                else if (intersects_cube2) {
+                    if (cube2_state < 3) {
+                        cube2_state++
+                    }
+                    else {
+                        cube2_state = 0
+                    }
+                    cube2.material.color.set('cube2_color[cube2_state]');
+                }
+                else if (intersects_cube3) {
+                    if (pos_cub3) {
+                        cube3.position.set(-2, 3, -10);
+                        pos_cub3 = false
+                    }
+                    else {
+                        cube3.position.set(-2, 1, -10);
+                        pos_cub3 = true
+                    }
+                }
+            }
+
+            window.addEventListener('mousemove', onMouseMove, false);
+            window.addEventListener('click', onMouseClick);
+
+        });
+
+    </script>
+</body>
