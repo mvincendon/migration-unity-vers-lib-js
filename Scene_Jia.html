@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3D Audio</title>
+    <style>
+        body, div{
+            margin: 0px;
+            padding: 0px;
+            text-align: center;
+        }
+
+        #cav{
+            border: 1px solid black;
+            border-radius: 4px;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+<canvas id="cav" width="320" height="200"></canvas>
+</body>
+<script>
+    let Aud = function (ctx, url) {
+        this.ctx = ctx;
+        this.url = url;
+
+//    source
+        this.src = ctx.createBufferSource();
+
+//    pNode
+        this.pNode = [];
+    };
+
+    Aud.prototype = {
+        output(){
+            for (let i = 0; i < this.pNode.length; i++){
+                let tNode = this.src;
+                for (let j = 0; j < this.pNode[i].length; j++){
+                    tNode.connect(this.pNode[i][j]);
+                    tNode = this.pNode[i][j];
+                }
+                tNode.connect(this.ctx.destination);
+            }
+        },
+
+        play(loop){
+            this.src.loop = loop || false;
+            this.output();
+            this.src.start(0);
+        },
+
+        stop() {
+            this.src.stop();
+        },
+
+        addNode(node, groupIdx = 0){
+            this.pNode[groupIdx] = this.pNode[groupIdx] || [];
+            this.pNode[groupIdx].push(node);
+        }
+    };
+
+    //Node type
+    Aud.NODETYPE = {
+        GNODE: 0 // 表示gainNode节点
+    }
+
+    //Objet de gestion Aud
+    AudManager = {
+        urls: [],
+        items: [],
+        ctx: null,
+        init(){
+            try{
+                this.ctx = new AudioContext();
+            }catch (e) {
+                console.log(`${e}`);
+            }
+        },
+        load(callback){
+            for (let i = 0; i < this.urls.length; i++){
+                this.loadSingle(this.urls[i], callback);
+            }
+        },
+
+        loadSingle(url, callback){
+            let req = new XMLHttpRequest();
+            req.open('GET', url, true);
+            req.responseType = 'arraybuffer';
+            let self = this;
+            req.onload = function () {
+                self.ctx.decodeAudioData(this.response)
+                    .then(
+                        buf => {
+                            let aud = new Aud(self.ctx, url);
+                            aud.src.buffer = buf;
+                            self.items.push(aud);
+
+                            if (self.items.length == self.urls.length){
+                                callback();
+                            }
+                        },
+                        err => {
+                            console.log(`decode error:${err}`);
+                        }
+                    )
+            };
+
+            req.send();
+        },
+
+        createNode(nodeType, param){
+            let node = null;
+            switch (nodeType) {
+                case 1:
+                    node = this.ctx.createPanner();
+                    break;
+                case 2:
+                    node = this.ctx.createScriptProcessor(param[0], param[1], param[2]);
+                    break;
+                default:
+                    node = this.ctx.createGain();
+            }
+            return node;
+        }
+    };
+
+    let ctx = document.getElementById('cav').getContext('2d');
+//    Définir les coordonnées des points mobiles
+    let cX = 190,
+        cY = 100,
+        deg = 0;
+
+    window.onload = function (){
+        init();
+    }
+
+    function renderCir(x, y, r, col){
+        ctx.save();
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI*2);
+        ctx.closePath();
+
+        ctx.fillStyle = col;
+        ctx.fill();
+        ctx.restore();
+    }
+
+    function renderCenter(){
+        renderCir(160, 100, 8, "red");
+    }
+
+    function renderCat() {
+        renderCir(cX, cY, 8, "blue");
+    }
+
+    function init(){
+        AudManager.urls = ["Ex_Jia/music.mp3"];
+        AudManager.init();
+
+        AudManager.load(()=>{
+            let pNod1 = AudManager.createNode(1);
+            let sound1 = AudManager.items[0];
+
+            sound1.addNode(pNod1);
+            sound1.play(true);
+            timeHandle();
+        });
+    }
+
+    function timeHandle() {
+        window.setInterval(()=>{
+            ctx.clearRect(0,0,320,200);
+            let rad = Math.PI*deg / 180;
+            let sx = 90*Math.cos(rad),
+                sy = 90*Math.sin(rad);
+            cX = 160 + sx;
+            cY = 100 + sy;
+
+            AudManager.items[0].pNode[0][0].setPosition(sx*0.1, -sy*0.1, 0);
+            renderCenter();
+            renderCat();
+            deg++;
+        }, 30);
+    }
+</script>
+</html>
+    

@@ -2,7 +2,6 @@
 <head>
     <title>Scène de Michael</title>
     <meta charset="UTF-8">
-    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self' '; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' 'unsafe-eval';"> -->
     <link rel="shortcut icon" href="#">
     <style>
         body {
@@ -103,7 +102,7 @@
             fleche.cone.visible = false;
             function initFusil(obj){
                 fusil = obj;
-                fusil.position.set(1.5, -0.3, -5);
+                fusil.position.set(1.5, -0.3, 0);
                 fusil.rotation.y = Math.PI;
                 scene.add(fusil);
                 fusil.add(boutFusil);   // On est obligé de les mettre là car on a modifié fusil
@@ -241,7 +240,7 @@
             }
 
             function isEligibleToBeRenderedInWiM(mesh){
-                const seuil = 5;
+                const seuil = 2;
                 return maxBoundingCoordinate(mesh) > seuil;
             }
 
