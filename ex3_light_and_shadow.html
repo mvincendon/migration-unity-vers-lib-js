@@ -11,11 +11,16 @@
 		<div id="container"></div>
 
 		<script type="module">
-		import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-		import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module.js';
-		import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
-		import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
-		import {GUI} from 'https://threejsfundamentals.org/threejs/../3rdparty/dat.gui.module.js';	
+		import * as THREE from './build/three.module.js'
+		import Stats from './examples/jsm/libs/stats.module.js';
+		import { OrbitControls } from './examples/jsm/controls/OrbitControls.js';
+		import { VRButton } from './examples/jsm/webxr/VRButton.js';
+		import {GUI} from './other_libs/dat.gui.module.js';
+		// import * as THREE from 'https://unpkg.com/three/build/three.module.js'
+		// import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module.js';
+		// import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
+		// import { VRButton } from 'https://unpkg.com/three/examples/jsm/webxr/VRButton.js';
+		// import {GUI} from 'https://threejsfundamentals.org/threejs/../3rdparty/dat.gui.module.js';	
 			
 			const container = document.getElementById( 'container' );
 			const stats = new Stats();
@@ -29,7 +34,7 @@
 			const renderer = new THREE.WebGLRenderer();
 			renderer.shadowMap.enabled = true;
 			renderer.setSize( window.innerWidth, window.innerHeight );
-			renderer.vr.enabled = true;
+			renderer.xr.enabled = true;
 			//document.body.appendChild( renderer.domElement );
 			container.appendChild( renderer.domElement );
 			container.appendChild(VRButton.createButton(renderer));
