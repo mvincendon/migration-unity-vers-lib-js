@@ -2,6 +2,7 @@ import * as THREE from "../build/three.module.js";
 import * as FUSIL from "./src/fusil.js";
 import * as PIECE from "./src/piece.js";
 import * as PORTE from "./src/porte.js";
+import * as LIGHT from "./src/light.js";
 import { XRControllerModelFactory } from '../examples/jsm/webxr/XRControllerModelFactory.js';
 
 
@@ -91,7 +92,15 @@ function launchMainRoom(renderer) {
     cube3.userData.color = 'blue';
     cube3.userData.scene = PORTE;
 
-    const cubes = [cube1, cube2, cube3];
+    let cube4 = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshLambertMaterial({ color: 'pink' })
+        );
+    cube4.position.set(6, 1, -10);
+    scene.add(cube4);
+    cube4.userData.scene = LIGHT;
+
+    const cubes = [cube1, cube2, cube3, cube4];
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
@@ -114,6 +123,7 @@ function launchMainRoom(renderer) {
             cube1.material.color.set('red');
             cube2.material.color.set('green');
             cube3.material.color.set('blue');
+            cube4.material.color.set('pink');
         }
 
         // Mise à jour du rayon visuel
