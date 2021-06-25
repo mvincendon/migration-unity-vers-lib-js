@@ -1,7 +1,7 @@
-import * as THREE from 'https://unpkg.com/three/build/three.module.js'
-import Stats from 'https://unpkg.com/three/examples/jsm/libs/stats.module.js';
-import { OrbitControls } from 'https://unpkg.com/three/examples/jsm/controls/OrbitControls.js';
-import {GUI} from 'https://threejsfundamentals.org/threejs/../3rdparty/dat.gui.module.js';
+import * as THREE from '../../build/three.module.js'
+import Stats from '../../examples/jsm/libs/stats.module.js';
+import { OrbitControls } from '../../examples/jsm/controls/OrbitControls.js';
+import {GUI} from '../../other_libs/dat.gui.module.js';
 
 
 function launch(renderer) {
