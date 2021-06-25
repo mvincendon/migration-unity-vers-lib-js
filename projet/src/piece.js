@@ -256,11 +256,9 @@ function launch(renderer){
     // ajouter les manettes dans la scène
 
             controller1 = renderer.xr.getController( 0 );
-            controller1.addEventListener( 'selectstart', null );
             scene.add( controller1 );
 
             controller2 = renderer.xr.getController( 1 );
-            controller2.addEventListener( 'selectstart', null );
             scene.add( controller2 );
 
             const controllerModelFactory = new XRControllerModelFactory();
