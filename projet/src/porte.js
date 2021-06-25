@@ -13,8 +13,8 @@ function launch(renderer){
     camera.position.set(0, 1.6, 3);
     scene.add(camera);
 
-    const texturePorte = new THREE.TextureLoader().load( '/projet/media/piece/wood.jpg' );
-    const textureSol = new THREE.TextureLoader().load( '/projet/media/piece/floor_wood_texture_1.jpg' );
+    const texturePorte = new THREE.TextureLoader().load( '../media/piece/wood.jpg' );
+    const textureSol = new THREE.TextureLoader().load( '../media/piece/floor_wood_texture_1.jpg' );
 
     let pivot = new THREE.Mesh(
         new THREE.CylinderGeometry(0.1, 0.1, 3),

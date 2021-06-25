@@ -1,5 +1,4 @@
 import * as THREE from "../../build/three.module.js";
-        import {VRButton} from "../../examples/jsm/webxr/VRButton.js";
         import {OrbitControls} from '../../examples/jsm/controls/OrbitControls.js';
 		import { XRControllerModelFactory } from '../../examples/jsm/webxr/XRControllerModelFactory.js';
         import TeleportVR from '../../other_libs/teleportvr.js';
@@ -23,8 +22,8 @@ function launch(renderer){
             const relativeVelocity = new THREE.Vector3();
     const cursor = new THREE.Vector3();
 
-    container = document.createElement( 'div' );
-            document.body.appendChild( container );
+    // container = document.createElement( 'div' );
+    //         document.body.appendChild( container );
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x555555);
@@ -38,7 +37,7 @@ function launch(renderer){
 
     const teleportVR = new TeleportVR(scene, camera);
 
-    controls = new OrbitControls( camera, container );
+    controls = new OrbitControls( camera, document.body );
             controls.target.set( 0, 1.6, 0 );
             controls.update();
 
@@ -61,8 +60,10 @@ function launch(renderer){
 
     const texturePorte = new THREE.TextureLoader().load( '/projet/media/piece/wood.jpg' );
     const textureSol = new THREE.TextureLoader().load( '/projet/media/piece/floor_wood_texture_1.jpg' );
-    const textureMur = new THREE.TextureLoader().load( 'ressources_TP1/maison.jpg' );
-    const textureButton = new THREE.TextureLoader().load( 'ressources_TP1/paint.jpg' );
+    // const textureMur = new THREE.TextureLoader().load( 'ressources_TP1/maison.jpg' );
+    // const textureButton = new THREE.TextureLoader().load( 'ressources_TP1/paint.jpg' );
+    const textureMur = textureSol;
+    const textureButton = textureSol;
 
     const geometry_sphere = new THREE.IcosahedronGeometry( radius, 3 );
 
@@ -255,9 +256,11 @@ function launch(renderer){
     // ajouter les manettes dans la scène
 
             controller1 = renderer.xr.getController( 0 );
+            controller1.addEventListener( 'selectstart', null );
             scene.add( controller1 );
 
             controller2 = renderer.xr.getController( 1 );
+            controller2.addEventListener( 'selectstart', null );
             scene.add( controller2 );
 
             const controllerModelFactory = new XRControllerModelFactory();
@@ -316,8 +319,6 @@ function launch(renderer){
 
             controllerGrip1.add( line.clone() );
             controllerGrip2.add( line.clone() );
-
-    document.body.appendChild(VRButton.createButton(renderer));
 
             raycaster = new THREE.Raycaster();
         

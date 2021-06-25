@@ -118,8 +118,10 @@ function launch(renderer){
     const controllerL = renderer.xr.getController(1);
     // scene.add(controllerL);
     scene.add(controllerR);
-    controllerL.addEventListener('squeezestart', ()=>{leftSqueezing = true;});
-    controllerL.addEventListener('squeezeend', ()=>{leftSqueezing = false;});
+    controllerL.addEventListener('selectstart', onLeftSelectStart);
+    controllerR.addEventListener('selectstart', onRightSelectStart);
+    // controllerL.addEventListener('squeezeend', ()=>{leftSqueezing = false;});
+
 
         // // // Dummy cube
         // const cube = new THREE.Mesh(
@@ -324,14 +326,25 @@ function launch(renderer){
         
     }
 
-    window.addEventListener("resize", onWinResize);
-    window.addEventListener("click", ()=>{
+    function onLeftSelectStart(){
+        launchSphere();
+    }
+
+    function onRightSelectStart(){
         if (raycaster.intersectObject(sphere).length > 0){
             sphere.material.color.set("red");
             sphereMoving = false;
-            // alert("Hit !");
         }
-    });
+
+    }
+
+    window.addEventListener("resize", onWinResize);
+    // window.addEventListener("click", ()=>{
+    //     if (raycaster.intersectObject(sphere).length > 0){
+    //         sphere.material.color.set("red");
+    //         sphereMoving = false;
+    //     }
+    // });
     window.addEventListener("keydown", event=>{
         if (event.keyCode==32){   // Espace
             launchSphere();

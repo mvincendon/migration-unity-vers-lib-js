@@ -124,6 +124,14 @@ function launchMainRoom(renderer) {
         renderer.render(scene, camera);
     });
 
+    function wash(){
+        controllerGrip1.removeEventListener( 'selectstart', onSelectStart );
+        controllerGrip1.removeEventListener( 'selectend', onSelectEnd );
+
+        controllerGrip2.removeEventListener( 'selectstart', onSelectStart );
+        controllerGrip2.removeEventListener( 'selectend', onSelectEnd );
+    }
+
     function onSelectStart(event) {
 
         const controllerGrip = event.target;
@@ -137,6 +145,7 @@ function launchMainRoom(renderer) {
         
         if (intersected.length > 0){
             const objet = intersected[0].object;
+            wash();
             objet.userData.scene.launch(renderer);
         }
     }
