@@ -1,9 +1,9 @@
-import * as THREE from "../build/three.module.js";
-        import {VRButton} from "../jsm/webxr/VRButton.js";
-        import {OrbitControls} from '../jsm/controls/OrbitControls.js';
-		import { XRControllerModelFactory } from '../jsm/webxr/XRControllerModelFactory.js';
-        import TeleportVR from './teleportvr.js';
-        import { TubePainter } from './jsm/misc/TubePainter.js';
+import * as THREE from "/build/three.module.js";
+        import {VRButton} from "/examples/jsm/webxr/VRButton.js";
+        import {OrbitControls} from '/examples/jsm/controls/OrbitControls.js';
+		import { XRControllerModelFactory } from '/examples/jsm/webxr/XRControllerModelFactory.js';
+        import TeleportVR from '/other_libs/teleportvr.js';
+        import { TubePainter } from '/examples/jsm/misc/TubePainter.js';
 
 function launch(renderer){
     let container;

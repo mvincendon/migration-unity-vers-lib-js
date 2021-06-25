@@ -1,14 +1,13 @@
-import * as THREE from "../build/three.module.js";
+import * as THREE from "/build/three.module.js";
 import * as FUSIL from "./src/fusil.js";
 import * as PIECE from "./src/fusil.js";
 import * as PORTE from "./src/porte.js";
-import { XRControllerModelFactory } from '../jsm/webxr/XRControllerModelFactory.js';
+import { XRControllerModelFactory } from '/examples/jsm/webxr/XRControllerModelFactory.js';
 
 
 function launchMainRoom(renderer) {
     const raycaster = new THREE.Raycaster();
     const mouse = new THREE.Vector2();
-    // const mouse = new THREE.Vector2();
     let controller1, controller2;
     let controllerGrip1, controllerGrip2;
     const tempMatrix = new THREE.Matrix4();
