@@ -1,8 +1,8 @@
-import * as THREE from "/build/three.module.js";
+import * as THREE from "../build/three.module.js";
 import * as FUSIL from "./src/fusil.js";
 import * as PIECE from "./src/fusil.js";
 import * as PORTE from "./src/porte.js";
-import { XRControllerModelFactory } from '/examples/jsm/webxr/XRControllerModelFactory.js';
+import { XRControllerModelFactory } from '../examples/jsm/webxr/XRControllerModelFactory.js';
 
 
 function launchMainRoom(renderer) {
@@ -49,8 +49,7 @@ function launchMainRoom(renderer) {
 
     window.addEventListener( 'resize', onWindowResize );
 
-    //animate();
-
+    animate();
 
     let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 1.6, 3);
@@ -136,14 +135,16 @@ function launchMainRoom(renderer) {
     
     }
     
-    const rayon = new THREE.ArrowHelper();
+    const rayon = new THREE.ArrowHelper(raycaster.ray.origin, raycaster.ray.direction, 100);
     rayon.cone.visible = false;
     scene.add(rayon);
 
     function render() {
-        const pos = raycaster.ray.origin;
-        rayon.position.set(pos.x, pos.y, pos.z);
-        rayon.setDirection(raycaster.ray.direction);
+        const dir = new THREE.Vector3();
+        controller1.getWorldDirection(dir);
+
+        rayon.position.set(controller1.position.x,controller1.position.y,controller1.position.z);
+        rayon.setDirection(dir);
 
         renderer.render( scene, camera);
     }
