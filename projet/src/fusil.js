@@ -1,9 +1,9 @@
 import * as THREE from "../../build/three.module.js";
 import {OBJLoader} from "../../examples/jsm/loaders/OBJLoader.js";
     
-const path_canon = "../media/fusil/canon.obj";
-const path_fusil = "../media/fusil/fusil2.obj";
-const path_main = "../media/fusil/main.obj";
+const path_canon = "/projet/media/fusil/canon.obj";
+const path_fusil = "/projet/media/fusil/fusil2.obj";
+const path_main = "/projet/media/fusil/main.obj";
 
 function launch(renderer){
     let [width, height] = [window.innerWidth, window.innerHeight];

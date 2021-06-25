@@ -59,8 +59,8 @@ function launch(renderer){
     group = new THREE.Group();
             scene.add( group );
 
-    const texturePorte = new THREE.TextureLoader().load( 'ressources_TP1/wood.jpg' );
-    const textureSol = new THREE.TextureLoader().load( 'ressources_TP1/floor_wood_texture_1.jpg' );
+    const texturePorte = new THREE.TextureLoader().load( '/projet/media/piece/wood.jpg' );
+    const textureSol = new THREE.TextureLoader().load( '/projet/media/piece/floor_wood_texture_1.jpg' );
     const textureMur = new THREE.TextureLoader().load( 'ressources_TP1/maison.jpg' );
     const textureButton = new THREE.TextureLoader().load( 'ressources_TP1/paint.jpg' );
 
