@@ -1,6 +1,6 @@
 import * as THREE from "../build/three.module.js";
 import * as FUSIL from "./src/fusil.js";
-import * as PIECE from "./src/fusil.js";
+import * as PIECE from "./src/piece.js";
 import * as PORTE from "./src/porte.js";
 import { XRControllerModelFactory } from '../examples/jsm/webxr/XRControllerModelFactory.js';
 
@@ -49,7 +49,6 @@ function launchMainRoom(renderer) {
 
     window.addEventListener( 'resize', onWindowResize );
 
-    animate();
 
     let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
     camera.position.set(0, 1.6, 3);
@@ -69,24 +68,57 @@ function launchMainRoom(renderer) {
         new THREE.BoxGeometry(1, 1, 1),
         new THREE.MeshLambertMaterial({ color: 'red' })
         );
-    cube1.position.set(0, 1, -10);
+    cube1.position.set(-3, 1, -10);
     scene.add(cube1);
+    cube1.userData.color = 'red';
+    cube1.userData.scene = FUSIL;
+
+    let cube2 = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshLambertMaterial({ color: 'green' })
+        );
+    cube2.position.set(0, 1, -10);
+    scene.add(cube2);
+    cube2.userData.color = 'green';
+    cube2.userData.scene = PIECE;
+
+    let cube3 = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshLambertMaterial({ color: 'blue' })
+        );
+    cube3.position.set(3, 1, -10);
+    scene.add(cube3);
+    cube3.userData.color = 'blue';
+    cube3.userData.scene = PORTE;
+
+    const cubes = [cube1, cube2, cube3];
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
     renderer.setAnimationLoop(() => {
         // requestAnimationFrame(animate);
 
-        // Coloration éventuelle de la poignée
+        // raycaster.setFromCamera(mouse, camera);
+        const dir = new THREE.Vector3();
+        controller1.getWorldDirection(dir);
+        dir.applyEuler(new THREE.Euler(Math.PI, 0, 0)); // On veut les z négatifs
+        raycaster.set(controller1.position, dir);
 
-        raycaster.setFromCamera(mouse, camera);
-        if (raycaster.intersectObject(cube1).length >= 1) {
-
-            cube1.material.color.set('white');
+        const inter = raycaster.intersectObjects(cubes);
+        if (inter.length >= 1) {
+            const objet = inter[0].object;
+            objet.material.color.set('white');
         }
         else {
             cube1.material.color.set('red');
+            cube2.material.color.set('green');
+            cube3.material.color.set('blue');
         }
+
+        // Mise à jour du rayon visuel
+        const pos = raycaster.ray.origin;
+        rayon.position.set(pos.x,pos.y,pos.z);
+        rayon.setDirection(raycaster.ray.direction);
 
         renderer.render(scene, camera);
     });
@@ -96,15 +128,15 @@ function launchMainRoom(renderer) {
         const controllerGrip = event.target;
         controllerGrip.userData.isSelecting = true;
 
-        tempMatrix.identity().extractRotation( controllerGrip.matrixWorld );
+        // tempMatrix.identity().extractRotation( controllerGrip.matrixWorld );
 
-        raycaster.ray.origin.setFromMatrixPosition( controllerGrip.matrixWorld );
-        raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( tempMatrix );
-        const intersects_cube1 = (raycaster.intersectObject( cube1 ).length >= 1);
+        // raycaster.ray.origin.setFromMatrixPosition( controllerGrip.matrixWorld );
+        // raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( tempMatrix );
+        const intersected = raycaster.intersectObjects( cubes );
         
-        // si la manette s'oriente vers la poignée quand on clique
-        if ( intersects_cube1 ) {
-            SCENE2.launch(renderer)
+        if (intersected.length > 0){
+            const objet = intersected[0].object;
+            objet.userData.scene.launch(renderer);
         }
     }
     function onSelectEnd( event ) {
@@ -129,22 +161,13 @@ function launchMainRoom(renderer) {
         renderer.setSize( window.innerWidth, window.innerHeight );
     
     }
-    function animate() {
-    
-        renderer.setAnimationLoop( render );
-    
-    }
     
     const rayon = new THREE.ArrowHelper(raycaster.ray.origin, raycaster.ray.direction, 100);
     rayon.cone.visible = false;
     scene.add(rayon);
 
     function render() {
-        const dir = new THREE.Vector3();
-        controller1.getWorldDirection(dir);
-
-        rayon.position.set(controller1.position.x,controller1.position.y,controller1.position.z);
-        rayon.setDirection(dir);
+        
 
         renderer.render( scene, camera);
     }
