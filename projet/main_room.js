@@ -101,7 +101,8 @@ function launchMainRoom(renderer) {
         // raycaster.setFromCamera(mouse, camera);
         const dir = new THREE.Vector3();
         controller1.getWorldDirection(dir);
-        dir.applyEuler(new THREE.Euler(Math.PI, 0, 0)); // On veut les z négatifs
+        // dir.applyEuler(new THREE.Euler(Math.PI, 0, Math.PI)); // On veut les z négatifs
+        dir.multiplyScalar(-1);
         raycaster.set(controller1.position, dir);
 
         const inter = raycaster.intersectObjects(cubes);
