@@ -125,3 +125,4 @@ function launch(renderer) {
     renderer.setAnimationLoop(animate);
     //animate();
 }
+export {launch};
