@@ -5,7 +5,8 @@ import {GUI} from '../../other_libs/dat.gui.module.js';
 
 
 function launch(renderer) {
-    const container = document.getElementById( 'container' );
+    // const container = document.getElementById( 'container' );
+    const container = document.body;
     const stats = new Stats();
     container.appendChild( stats.dom );
 
