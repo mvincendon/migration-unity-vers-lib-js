@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Déplacements dans modèle 3D</title>
+    <title>Démmonstration Three.js</title>
     <link rel="shortcut icon" href="#" />
     <style>
         body {
@@ -24,6 +24,13 @@
 
         document.body.appendChild(renderer.domElement);
         document.body.appendChild(VRButton.createButton(renderer));
+
+        
+        window.addEventListener('keydown', (event)=>{
+            if (event.keyCode===8){
+                launchMainRoom(renderer);
+            }
+        });
 
         launchMainRoom(renderer);
 
