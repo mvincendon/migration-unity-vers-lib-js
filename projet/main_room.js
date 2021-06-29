@@ -3,6 +3,7 @@ import * as FUSIL from "./src/fusil.js";
 import * as PIECE from "./src/piece.js";
 import * as PORTE from "./src/porte.js";
 import * as LIGHT from "./src/light.js";
+import * as MINECRAFT from "./src/minecraft.js";
 import { XRControllerModelFactory } from '../examples/jsm/webxr/XRControllerModelFactory.js';
 
 
@@ -64,6 +65,15 @@ function launchMainRoom(renderer) {
     sol.position.set(0, 0, -10);
     sol.rotation.x = Math.PI / 2;
     scene.add(sol);
+    
+    let cube0 = new THREE.Mesh(
+        new THREE.BoxGeometry(1, 1, 1),
+        new THREE.MeshLambertMaterial({ color: 'white' })
+        );
+    cube0.position.set(-6, 1, -10);
+    scene.add(cube0);
+    cube0.userData.color = 'white';
+    cube0.userData.scene = MINECRAFT;
 
     let cube1 = new THREE.Mesh(
         new THREE.BoxGeometry(1, 1, 1),
@@ -100,7 +110,7 @@ function launchMainRoom(renderer) {
     scene.add(cube4);
     cube4.userData.scene = LIGHT;
 
-    const cubes = [cube1, cube2, cube3, cube4];
+    const cubes = [cube0, cube1, cube2, cube3, cube4];
 
     scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
@@ -120,6 +130,7 @@ function launchMainRoom(renderer) {
             objet.material.color.set('white');
         }
         else {
+            cube0.material.color.set('white');
             cube1.material.color.set('red');
             cube2.material.color.set('green');
             cube3.material.color.set('blue');
