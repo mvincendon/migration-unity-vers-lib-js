@@ -50,6 +50,13 @@ function launchMainRoom(renderer) {
     line.scale.z = 5;
 
     window.addEventListener( 'resize', onWindowResize );
+    
+    const textureSol = new THREE.TextureLoader().load('../ressources_TP1/floor_wood_texture_1.jpg');
+    const textureMINECRAFT = new THREE.TextureLoader().load( './media/main/MINECRAFT.jpg' );
+    const textureFUSIL = new THREE.TextureLoader().load( './media/main/FUSIL.jpg' );
+    const texturePIECE = new THREE.TextureLoader().load( './media/main/PIECE.jpg' );
+    const texturePOETR = new THREE.TextureLoader().load( './media/main/PORTE.jpg' );
+    const textureLIGHT = new THREE.TextureLoader().load( './media/main/LIGHT.jpg' );
 
 
     let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -67,46 +74,46 @@ function launchMainRoom(renderer) {
     scene.add(sol);
     
     let cube0 = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshLambertMaterial({ color: 'white' })
+        new THREE.BoxGeometry(2, 2, 0.1),
+        new THREE.MeshLambertMaterial({ color: 'white',  map: textureMINECRAFT })
         );
-    cube0.position.set(-6, 1, -10);
+    cube0.position.set(-8, 1, -5);
     scene.add(cube0);
     cube0.userData.color = 'white';
     cube0.userData.scene = MINECRAFT;
 
     let cube1 = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshLambertMaterial({ color: 'red' })
+        new THREE.BoxGeometry(2, 2, 0.1),
+        new THREE.MeshLambertMaterial({ color: 'white',  map: textureFUSIL  })
         );
-    cube1.position.set(-3, 1, -10);
+    cube1.position.set(-5, 1, -5);
     scene.add(cube1);
     cube1.userData.color = 'red';
     cube1.userData.scene = FUSIL;
 
     let cube2 = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshLambertMaterial({ color: 'green' })
+        new THREE.BoxGeometry(2, 2, 0.1),
+        new THREE.MeshLambertMaterial({ color: 'white',  map: texturePIECE })
         );
-    cube2.position.set(0, 1, -10);
+    cube2.position.set(-2, 1, -5);
     scene.add(cube2);
     cube2.userData.color = 'green';
     cube2.userData.scene = PIECE;
 
     let cube3 = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshLambertMaterial({ color: 'blue' })
+        new THREE.BoxGeometry(3, 1.5, 0.1),
+        new THREE.MeshLambertMaterial({ color: 'white',  map: texturePOETR })
         );
-    cube3.position.set(3, 1, -10);
+    cube3.position.set(1.5, 0.75, -5);
     scene.add(cube3);
     cube3.userData.color = 'blue';
     cube3.userData.scene = PORTE;
 
     let cube4 = new THREE.Mesh(
-        new THREE.BoxGeometry(1, 1, 1),
-        new THREE.MeshLambertMaterial({ color: 'pink' })
+        new THREE.BoxGeometry(3, 1.5, 0.1),
+        new THREE.MeshLambertMaterial({ color: 'white',  map: textureLIGHT })
         );
-    cube4.position.set(6, 1, -10);
+    cube4.position.set(5.5, 0.75, -5);
     scene.add(cube4);
     cube4.userData.scene = LIGHT;
 
