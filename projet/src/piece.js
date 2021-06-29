@@ -60,10 +60,8 @@ function launch(renderer){
 
     const texturePorte = new THREE.TextureLoader().load( './media/piece/wood.jpg' );
     const textureSol = new THREE.TextureLoader().load( './media/piece/floor_wood_texture_1.jpg' );
-    // const textureMur = new THREE.TextureLoader().load( 'ressources_TP1/maison.jpg' );
-    // const textureButton = new THREE.TextureLoader().load( 'ressources_TP1/paint.jpg' );
-    const textureMur = textureSol;
-    const textureButton = textureSol;
+    const textureMur = new THREE.TextureLoader().load( './media/piece/maison.jpg' );
+    const textureButton = new THREE.TextureLoader().load( './media/piece/paint.jpg' );
 
     const geometry_sphere = new THREE.IcosahedronGeometry( radius, 3 );
 
