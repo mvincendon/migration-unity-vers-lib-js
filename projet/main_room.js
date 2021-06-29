@@ -136,13 +136,6 @@ function launchMainRoom(renderer) {
             const objet = inter[0].object;
             objet.material.color.set('white');
         }
-        else {
-            cube0.material.color.set('white');
-            cube1.material.color.set('red');
-            cube2.material.color.set('green');
-            cube3.material.color.set('blue');
-            cube4.material.color.set('pink');
-        }
 
         // Mise à jour du rayon visuel
         const pos = raycaster.ray.origin;
