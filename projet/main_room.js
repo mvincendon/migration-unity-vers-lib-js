@@ -63,8 +63,6 @@ function launchMainRoom(renderer) {
     camera.position.set(0, 1.6, 3);
     scene.add(camera);
 
-    const textureSol = new THREE.TextureLoader().load('../ressources_TP1/floor_wood_texture_1.jpg');
-
     let sol = new THREE.Mesh(
         new THREE.PlaneGeometry(30, 30, 1),
         new THREE.MeshLambertMaterial({ color: 'white', map: textureSol, side: THREE.DoubleSide })
