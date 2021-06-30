@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Déplacements de camera</title>
+    <title>Démo de base Three.js</title>
     <link rel="shortcut icon" href="#" />
     <style>
         body {
@@ -25,14 +25,17 @@
             camera.position.set(0, 1.6, 3);
             scene.add(camera);
 
-            let cube = new THREE.Mesh(
-                new THREE.BoxGeometry(1, 1, 1),
-                new THREE.MeshLambertMaterial({color: 'red'})
-            );
+            const geometry = new THREE.BoxGeometry(1, 1, 1);
+            const material = new THREE.MeshPhongMaterial({color: 'red'});
+            const cube = new THREE.Mesh( geometry, material );
             cube.position.set(0, 1.5, -10);
             scene.add(cube);
 
             
+            const light = new THREE.PointLight(0xffffff, 1, 100, 2);
+            light.position.set(2, 3, 0);
+            light.castShadow = true;
+            scene.add(light);
             scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
             let renderer = new THREE.WebGLRenderer({antialias: true});
@@ -45,24 +48,32 @@
 
 
             // Fonction qui se mettra à jour à chaque frame
+            // renderer.setAnimationLoop(() => {
+            //     // A commenter si on veut passer en RV
+            //     // requestAnimationFrame(animate);
+
+            //     cube.rotation.x += 0.1;
+            //     cube.rotation.y += 0.1;
+
+            //     // Déplacement vers l'avant de la caméra
+            //     let dl = 0*0.05;
+
+            //     let [u, v, w] = base(camera);
+            //     let [xu, yu, zu] = u;
+
+            //     let dx = dl * xu,
+            //         dy = dl * yu,
+            //         dz = dl * zu;
+
+            //     camera.position.set(camera.position.x + dx, camera.position.y + dy, camera.position.z + dz);
+
+            //     renderer.render(scene, camera);
+            // });
+
             renderer.setAnimationLoop(() => {
-                // A commenter si on veut passer en RV
-                // requestAnimationFrame(animate);
 
                 cube.rotation.x += 0.1;
                 cube.rotation.y += 0.1;
-
-                // Déplacement vers l'avant de la caméra
-                let dl = 0*0.05;
-
-                let [u, v, w] = base(camera);
-                let [xu, yu, zu] = u;
-
-                let dx = dl * xu,
-                    dy = dl * yu,
-                    dz = dl * zu;
-
-                camera.position.set(camera.position.x + dx, camera.position.y + dy, camera.position.z + dz);
 
                 renderer.render(scene, camera);
             });
