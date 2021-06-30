@@ -1,7 +1,7 @@
 import * as THREE from "../build/three.module.js";
 import * as FUSIL from "./src/fusil.js";
 import * as PIECE from "./src/piece.js";
-import * as PORTE from "./src/porte.js";
+import * as PORTE from "./src/cut.js";
 import * as LIGHT from "./src/light.js";
 import * as MINECRAFT from "./src/minecraft.js";
 import { XRControllerModelFactory } from '../examples/jsm/webxr/XRControllerModelFactory.js';
@@ -55,7 +55,7 @@ function launchMainRoom(renderer) {
     const textureMINECRAFT = new THREE.TextureLoader().load('./media/main/MINECRAFT.jpg');
     const textureFUSIL = new THREE.TextureLoader().load('./media/main/FUSIL.jpg');
     const texturePIECE = new THREE.TextureLoader().load('./media/main/PIECE.jpg');
-    const texturePOETR = new THREE.TextureLoader().load('./media/main/PORTE.JPG');
+    const texturePOETR = new THREE.TextureLoader().load('./media/main/cut.png');
     const textureLIGHT = new THREE.TextureLoader().load('./media/main/LIGHT.JPG');
 
 
