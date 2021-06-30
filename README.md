@@ -18,3 +18,5 @@ https://zoom.us/j/3488910326?pwd=R01GNHdLU0pTYUNFWUt6Y1lhbmhOZz09
 ID de réunion : 348 891 0326
 Code secret : 9kBiG7
 
+https://docs.google.com/presentation/d/1XOYLqYJjLUOof0l4shomMkNKkEeMy9GhPRgc219qvOI/edit#slide=id.ge26e0a7af6_0_2
+
