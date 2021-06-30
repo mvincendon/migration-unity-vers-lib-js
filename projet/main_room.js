@@ -19,44 +19,44 @@ function launchMainRoom(renderer) {
     scene.background = new THREE.Color(0x555555);
 
 
-    controller1 = renderer.xr.getController( 0 );
-    scene.add( controller1 );
+    controller1 = renderer.xr.getController(0);
+    scene.add(controller1);
 
-    controller2 = renderer.xr.getController( 1 );
-    scene.add( controller2 );
+    controller2 = renderer.xr.getController(1);
+    scene.add(controller2);
 
     const controllerModelFactory = new XRControllerModelFactory();
 
-    controllerGrip1 = renderer.xr.getControllerGrip( 0 );
-    controllerGrip1.add( controllerModelFactory.createControllerModel( controllerGrip1 ) );
-    controllerGrip1.addEventListener( 'selectstart', onSelectStart );
-    controllerGrip1.addEventListener( 'selectend', onSelectEnd );
+    controllerGrip1 = renderer.xr.getControllerGrip(0);
+    controllerGrip1.add(controllerModelFactory.createControllerModel(controllerGrip1));
+    controllerGrip1.addEventListener('selectstart', onSelectStart);
+    controllerGrip1.addEventListener('selectend', onSelectEnd);
     //controllerGrip1.addEventListener( 'squeezestart', onSqueezeStart );
     //controllerGrip1.addEventListener( 'squeezeend', onSqueezeEnd );
-    scene.add( controllerGrip1 );
+    scene.add(controllerGrip1);
 
-    controllerGrip2 = renderer.xr.getControllerGrip( 1 );
-    controllerGrip2.add( controllerModelFactory.createControllerModel( controllerGrip2 ) );
-    controllerGrip2.addEventListener( 'selectstart', onSelectStart );
-    controllerGrip2.addEventListener( 'selectend', onSelectEnd );
+    controllerGrip2 = renderer.xr.getControllerGrip(1);
+    controllerGrip2.add(controllerModelFactory.createControllerModel(controllerGrip2));
+    controllerGrip2.addEventListener('selectstart', onSelectStart);
+    controllerGrip2.addEventListener('selectend', onSelectEnd);
     //controllerGrip2.addEventListener( 'squeezestart', onSqueezeStart );
     //controllerGrip2.addEventListener( 'squeezeend', onSqueezeEnd );
-    scene.add( controllerGrip2 );
+    scene.add(controllerGrip2);
 
-    const geometry = new THREE.BufferGeometry().setFromPoints( [ new THREE.Vector3( 0, 0, 0 ), new THREE.Vector3( 0, 0, - 1 ) ] );
+    const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), new THREE.Vector3(0, 0, - 1)]);
 
-    const line = new THREE.Line( geometry );
+    const line = new THREE.Line(geometry);
     line.name = 'line';
     line.scale.z = 5;
 
-    window.addEventListener( 'resize', onWindowResize );
-    
-    const textureSol = new THREE.TextureLoader().load('../ressources_TP1/floor_wood_texture_1.jpg');
-    const textureMINECRAFT = new THREE.TextureLoader().load( './media/main/MINECRAFT.jpg' );
-    const textureFUSIL = new THREE.TextureLoader().load( './media/main/FUSIL.jpg' );
-    const texturePIECE = new THREE.TextureLoader().load( './media/main/PIECE.jpg' );
-    const texturePOETR = new THREE.TextureLoader().load( './media/main/PORTE.jpg' );
-    const textureLIGHT = new THREE.TextureLoader().load( './media/main/LIGHT.jpg' );
+    window.addEventListener('resize', onWindowResize);
+
+    const textureSol = new THREE.TextureLoader().load('../ressources_TP1/floor_wood_texture_1.JPG');
+    const textureMINECRAFT = new THREE.TextureLoader().load('./media/main/MINECRAFT.JPG');
+    const textureFUSIL = new THREE.TextureLoader().load('./media/main/FUSIL.jpg');
+    const texturePIECE = new THREE.TextureLoader().load('./media/main/PIECE.jpg');
+    const texturePOETR = new THREE.TextureLoader().load('./media/main/PORTE.jpg');
+    const textureLIGHT = new THREE.TextureLoader().load('./media/main/LIGHT.jpg');
 
 
     let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -70,11 +70,11 @@ function launchMainRoom(renderer) {
     sol.position.set(0, 0, -10);
     sol.rotation.x = Math.PI / 2;
     scene.add(sol);
-    
+
     let cube0 = new THREE.Mesh(
         new THREE.BoxGeometry(2, 2, 0.1),
-        new THREE.MeshLambertMaterial({ color: 'white',  map: textureMINECRAFT })
-        );
+        new THREE.MeshLambertMaterial({ color: 'white', map: textureMINECRAFT })
+    );
     cube0.position.set(-8, 1, -5);
     scene.add(cube0);
     cube0.userData.color = 'white';
@@ -82,8 +82,8 @@ function launchMainRoom(renderer) {
 
     let cube1 = new THREE.Mesh(
         new THREE.BoxGeometry(2, 2, 0.1),
-        new THREE.MeshLambertMaterial({ color: 'white',  map: textureFUSIL  })
-        );
+        new THREE.MeshLambertMaterial({ color: 'white', map: textureFUSIL })
+    );
     cube1.position.set(-5, 1, -5);
     scene.add(cube1);
     cube1.userData.color = 'red';
@@ -91,8 +91,8 @@ function launchMainRoom(renderer) {
 
     let cube2 = new THREE.Mesh(
         new THREE.BoxGeometry(2, 2, 0.1),
-        new THREE.MeshLambertMaterial({ color: 'white',  map: texturePIECE })
-        );
+        new THREE.MeshLambertMaterial({ color: 'white', map: texturePIECE })
+    );
     cube2.position.set(-2, 1, -5);
     scene.add(cube2);
     cube2.userData.color = 'green';
@@ -100,8 +100,8 @@ function launchMainRoom(renderer) {
 
     let cube3 = new THREE.Mesh(
         new THREE.BoxGeometry(3, 1.5, 0.1),
-        new THREE.MeshLambertMaterial({ color: 'white',  map: texturePOETR })
-        );
+        new THREE.MeshLambertMaterial({ color: 'white', map: texturePOETR })
+    );
     cube3.position.set(1.5, 0.75, -5);
     scene.add(cube3);
     cube3.userData.color = 'blue';
@@ -109,8 +109,8 @@ function launchMainRoom(renderer) {
 
     let cube4 = new THREE.Mesh(
         new THREE.BoxGeometry(3, 1.5, 0.1),
-        new THREE.MeshLambertMaterial({ color: 'white',  map: textureLIGHT })
-        );
+        new THREE.MeshLambertMaterial({ color: 'white', map: textureLIGHT })
+    );
     cube4.position.set(5.5, 0.75, -5);
     scene.add(cube4);
     cube4.userData.scene = LIGHT;
@@ -137,18 +137,18 @@ function launchMainRoom(renderer) {
 
         // Mise à jour du rayon visuel
         const pos = raycaster.ray.origin;
-        rayon.position.set(pos.x,pos.y,pos.z);
+        rayon.position.set(pos.x, pos.y, pos.z);
         rayon.setDirection(raycaster.ray.direction);
 
         renderer.render(scene, camera);
     });
 
-    function wash(){
-        controllerGrip1.removeEventListener( 'selectstart', onSelectStart );
-        controllerGrip1.removeEventListener( 'selectend', onSelectEnd );
+    function wash() {
+        controllerGrip1.removeEventListener('selectstart', onSelectStart);
+        controllerGrip1.removeEventListener('selectend', onSelectEnd);
 
-        controllerGrip2.removeEventListener( 'selectstart', onSelectStart );
-        controllerGrip2.removeEventListener( 'selectend', onSelectEnd );
+        controllerGrip2.removeEventListener('selectstart', onSelectStart);
+        controllerGrip2.removeEventListener('selectend', onSelectEnd);
     }
 
     function onSelectStart(event) {
@@ -160,47 +160,47 @@ function launchMainRoom(renderer) {
 
         // raycaster.ray.origin.setFromMatrixPosition( controllerGrip.matrixWorld );
         // raycaster.ray.direction.set( 0, 0, - 1 ).applyMatrix4( tempMatrix );
-        const intersected = raycaster.intersectObjects( cubes );
-        
-        if (intersected.length > 0){
+        const intersected = raycaster.intersectObjects(cubes);
+
+        if (intersected.length > 0) {
             const objet = intersected[0].object;
             wash();
             objet.userData.scene.launch(renderer);
         }
     }
-    function onSelectEnd( event ) {
+    function onSelectEnd(event) {
 
         const controllerGrip = event.target;
         controllerGrip.userData.isSelecting = false;
-    
-        if ( controllerGrip.userData.selected !== undefined ) {
-    
+
+        if (controllerGrip.userData.selected !== undefined) {
+
             controllerGrip.userData.selected = undefined;
-    
+
         }
-    
-    
+
+
     }
-    
+
     function onWindowResize() {
-    
+
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
-    
-        renderer.setSize( window.innerWidth, window.innerHeight );
-    
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
     }
-    
+
     const rayon = new THREE.ArrowHelper(raycaster.ray.origin, raycaster.ray.direction, 100);
     rayon.cone.visible = false;
     scene.add(rayon);
 
     function render() {
-        
 
-        renderer.render( scene, camera);
+
+        renderer.render(scene, camera);
     }
-    
+
     function onMouseMove(event) {
         // calculate mouse position in normalized device coordinates
         // (-1 to +1) for both components
@@ -222,8 +222,8 @@ function launchMainRoom(renderer) {
 
     window.addEventListener('mousemove', onMouseMove, false);
     window.addEventListener('click', onMouseClick);
-    
-    }
+
+}
 
 
 export { launchMainRoom }
