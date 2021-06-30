@@ -51,12 +51,12 @@ function launchMainRoom(renderer) {
 
     window.addEventListener('resize', onWindowResize);
 
-    const textureSol = new THREE.TextureLoader().load('../ressources_TP1/floor_wood_texture_1.JPG');
-    const textureMINECRAFT = new THREE.TextureLoader().load('./media/main/MINECRAFT.JPG');
+    const textureSol = new THREE.TextureLoader().load('../ressources_TP1/floor_wood_texture_1.jpg');
+    const textureMINECRAFT = new THREE.TextureLoader().load('./media/main/MINECRAFT.jpg');
     const textureFUSIL = new THREE.TextureLoader().load('./media/main/FUSIL.jpg');
     const texturePIECE = new THREE.TextureLoader().load('./media/main/PIECE.jpg');
-    const texturePOETR = new THREE.TextureLoader().load('./media/main/PORTE.jpg');
-    const textureLIGHT = new THREE.TextureLoader().load('./media/main/LIGHT.jpg');
+    const texturePOETR = new THREE.TextureLoader().load('./media/main/PORTE.JPG');
+    const textureLIGHT = new THREE.TextureLoader().load('./media/main/LIGHT.JPG');
 
 
     let camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 100);
@@ -216,7 +216,7 @@ function launchMainRoom(renderer) {
         const intersects_cube1 = (raycaster.intersectObject(cube1).length >= 1);
 
         if (intersects_cube1) {
-            SCENE2.launch(renderer)
+            // SCENE2.launch(renderer)
         }
     }
 
